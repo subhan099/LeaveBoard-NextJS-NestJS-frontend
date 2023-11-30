@@ -1,118 +1,224 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+"use client";
+import { useState, useEffect } from "react";
+import { Paper, TextField, Button, IconButton } from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
+import img from "../assets/signUp.png";
+import img1 from "../assets/Layer_1.svg";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { FormControlLabel, Checkbox } from "@mui/material";
+import { useRouter } from "next/router";
+import { API_URLS } from "../config";
+import axios from "axios";
 
-const inter = Inter({ subsets: ['latin'] })
+export default function signup() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstNameError, setFirstNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const router = useRouter();
+  const { token } = router.query;
 
-export default function Home() {
+  const handleSignUp = () => {
+    setFirstNameError("");
+    setLastNameError("");
+    setEmailError("");
+    setPasswordError("");
+
+    let isValid = true;
+
+    if (!firstName) {
+      setFirstNameError("It is required");
+      isValid = false;
+    }
+
+    if (!lastName) {
+      setLastNameError("It is required");
+      isValid = false;
+    }
+
+    if (!email) {
+      setEmailError("It is required");
+      isValid = false;
+    }
+
+    if (!password) {
+      setPasswordError("It is required");
+      isValid = false;
+    }
+
+    if (!isValid) {
+      return;
+    }
+
+    axios
+      .post(
+        API_URLS.SIGNUP,
+        {
+          firstName,
+          lastName,
+          email,
+          password,
+        },
+        {
+          params: { token },
+        }
+      )
+      .then((response) => {
+        if (response.data.status === "failure") {
+          alert("can't create account");
+        } else {
+          router.push("/home");
+        }
+      })
+      .catch((error) => {
+        console.log("Error signing up user", error);
+      });
+  };
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="box">
+      <div className="colored_box">
+        <div className="upper_navigation">
+          <Link href="/login" style={{ marginRight: "51px" }}>
+            Login
+          </Link>
+          <Link href="/" style={{ marginRight: "51px" }}>
+            Register
+          </Link>
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="form_container">
+        <Paper elevation={3} className="paper_style">
+          <div className="child1">
+            <div className="centered-container">
+              <Image src={img1} alt="SVG Image" className="centered-image" />
+              <p className="centered-text">Work Leave</p>
+            </div>
+            <div className="side_title">SignUp</div>
+            <div className="centered_heading">Welcome Back, Work Leave</div>
+            <div className="centered_subheading">
+              Create a new account with email
+            </div>
+
+            <form className="form">
+              <div className="parallel">
+                <div className="space">
+                  <span className="input_title">First Name</span>
+                  <TextField
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => {
+                      setFirstName(e.target.value);
+                      setFirstNameError(e.target.value ? "" : "It is required");
+                    }}
+                    fullWidth
+                  />
+                  <div className="error-message">{firstNameError}</div>
+                </div>
+                <div>
+                  <span className="input_title">Last Name</span>
+                  <TextField
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                      setLastNameError(e.target.value ? "" : "It is required");
+                    }}
+                    fullWidth
+                  />
+                  <div className="error-message">{lastNameError}</div>
+                </div>
+              </div>
+              <div className="input_title input_margin">
+                <span className="input_title">Email</span>
+                <TextField
+                  placeholder="info@gmail.com"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setEmailError(e.target.value ? "" : "It is required");
+                  }}
+                  fullWidth
+                />
+                <div className="error-message">{emailError}</div>
+              </div>
+
+              <div className="input_title input_margin">
+                <span className="input_title">Password</span>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <TextField
+                    placeholder="**********"
+                    fullWidth
+                    type={showPassword ? "text" : "password"}
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          aria-label="Toggle password visibility"
+                          edge="end"
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      ),
+                    }}
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setPasswordError(e.target.value ? "" : "It is required");
+                    }}
+                  />
+                </div>
+                <div className="error-message">{passwordError}</div>
+              </div>
+              <FormControlLabel
+                required
+                control={<Checkbox className="checkbox-input" />}
+                className="checkbox-label"
+                label={
+                  <div>
+                    <span
+                      style={{
+                        color: "#0A1931",
+                        fontFamily: "Inter",
+                        fontSize: "14px",
+                        fontStyle: "normal",
+                        fontWeight: 400,
+                        lineHeight: "normal",
+                      }}
+                    >
+                      I have read and agree to the{" "}
+                    </span>
+                    <span
+                      style={{
+                        color: "#39A049",
+                        fontFamily: "Inter",
+                        fontSize: "14px",
+                        fontStyle: "normal",
+                        fontWeight: 400,
+                        lineHeight: "normal",
+                      }}
+                    >
+                      terms of use.
+                    </span>
+                  </div>
+                }
+              />
+              <button className="signup_button" onClick={handleSignUp}>
+                SignUp
+              </button>
+            </form>
+          </div>
+          <div className="child2">
+            <Image src={img} alt="My Image" className="side_image" />
+          </div>
+        </Paper>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }

@@ -1,0 +1,30 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="16" height="16" fill="#1E1E1E"/>
+<g id="Employee Dtails" clip-path="url(#clip0_0_1)">
+<rect width="1440" height="962" transform="translate(-27 -110)" fill="white"/>
+<rect id="Rectangle 34" x="-27" y="-110" width="290" height="962" fill="#EAEAEF"/>
+<g id="Rectangle 67">
+<rect x="-27" y="-110" width="290" height="962" fill="#F9FBFC"/>
+<rect x="-26.75" y="-109.75" width="289.5" height="961.5" stroke="black" stroke-opacity="0.36" stroke-width="0.5"/>
+</g>
+<g id="Rectangle 68">
+<rect x="-27" y="-110" width="290" height="962" fill="#F9FBFC"/>
+<rect x="-26.5" y="-109.5" width="289" height="961" stroke="#ECEEF0" stroke-opacity="0.96"/>
+</g>
+<rect id="Rectangle 64" x="-16" y="-12" width="268" height="44" rx="8" fill="#D6F0E9"/>
+<g id="Frame" clip-path="url(#clip1_0_1)">
+<g id="Group">
+<path id="Vector" d="M14.125 1.25H13.375V0H12.125V1.25H3.875V0H2.625V1.25H1.875C0.841125 1.25 0 2.09113 0 3.125V14.125C0 15.1589 0.841125 16 1.875 16H14.125C15.1589 16 16 15.1589 16 14.125V3.125C16 2.09113 15.1589 1.25 14.125 1.25ZM14.75 14.125C14.75 14.4696 14.4696 14.75 14.125 14.75H1.875C1.53038 14.75 1.25 14.4696 1.25 14.125V5.875H14.75V14.125ZM14.75 4.625H1.25V3.125C1.25 2.78038 1.53038 2.5 1.875 2.5H2.625V3.75H3.875V2.5H12.125V3.75H13.375V2.5H14.125C14.4696 2.5 14.75 2.78038 14.75 3.125V4.625Z" fill="#0FAC81"/>
+<path id="Vector_2" d="M2.375 7.1875H3.625V8.4375H2.375V7.1875ZM4.875 7.1875H6.125V8.4375H4.875V7.1875ZM7.375 7.1875H8.625V8.4375H7.375V7.1875ZM9.875 7.1875H11.125V8.4375H9.875V7.1875ZM12.375 7.1875H13.625V8.4375H12.375V7.1875ZM2.375 9.6875H3.625V10.9375H2.375V9.6875ZM4.875 9.6875H6.125V10.9375H4.875V9.6875ZM7.375 9.6875H8.625V10.9375H7.375V9.6875ZM9.875 9.6875H11.125V10.9375H9.875V9.6875ZM2.375 12.1875H3.625V13.4375H2.375V12.1875ZM4.875 12.1875H6.125V13.4375H4.875V12.1875ZM7.375 12.1875H8.625V13.4375H7.375V12.1875ZM9.875 12.1875H11.125V13.4375H9.875V12.1875ZM12.375 9.6875H13.625V10.9375H12.375V9.6875Z" fill="#0FAC81"/>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_0_1">
+<rect width="1440" height="962" fill="white" transform="translate(-27 -110)"/>
+</clipPath>
+<clipPath id="clip1_0_1">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
